@@ -1,44 +1,55 @@
 (function () {
-'use scrict';
+  "use scrict";
 
-angular.module('Module1', [])
-.controller('Container', ContainerController)
+  angular
+    .module("LunchCheck", [])
+    .controller("LunchCheckController", LunchCheckController);
 
-function ContainerController ($scope, $filter, $injector) {
-    $scope.lunchMenu = '';
-    $scope.checkFood = function()
-    {
-        var foods = $scope.lunchMenu.split(',');
-        var nonEmptyFoods = removeEmptyFoods(foods);
+  LunchCheckController.$inject = ["$scope"];
+  function LunchCheckController($scope, $filter, $injector) {
+    $scope.lunchMenu = "";
+    $scope.checkFood = function () {
+      var foods = $scope.lunchMenu.split(",");
+      var nonEmptyFoods = removeEmptyFoods(foods);
 
-        if (nonEmptyFoods.length == 0)
-        {
-            $scope.message = "Please enter data first!";
+      if (nonEmptyFoods.length == 0) {
+        $scope.message = "Please enter data first!";
+        $scope.messageStyle = {
+          "color" : "red"
+        };
+        $scope.textboxStyle = {
+          "border-color" : "red"
+        };
+      } else if (nonEmptyFoods.length > 3) {
+        $scope.message = "Too Much!";
+        $scope.messageStyle = {
+          "color" : "green"
+        };
+        $scope.textboxStyle = {
+          "border-color" : "green"
+        };
+      } else {
+        $scope.message = "Enjoy!";
+        $scope.messageStyle = {
+          "color" : "green"
+        };
+        $scope.textboxStyle = {
+          "border-color" : "green"
+        };
+      }
+    };
+
+    function removeEmptyFoods(foods) {
+      var nonEmptyFoods = [];
+      for (var i = 0; i < foods.length; ++i) {
+        var food = foods[i];
+        food = food.trim();
+        if (food != "") {
+          nonEmptyFoods.push(food);
         }
-        else if (nonEmptyFoods.length > 3)
-        {
-            $scope.message = "Too Much!";
-        }
-        else
-        {
-            $scope.message = "Enjoy!";
-        }
+      }
+
+      return nonEmptyFoods;
     }
-
-    function removeEmptyFoods(foods)
-    {
-        var nonEmptyFoods = [];
-        for (var i=0; i<foods.length; ++i)
-        {
-            var food = foods[i];
-            food = food.trim();
-            if (food != "")
-            {
-                nonEmptyFoods.push(food);
-            }
-        }
-
-        return nonEmptyFoods;
-    }
-}
+  }
 })();

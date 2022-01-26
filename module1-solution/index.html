@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Module1">
+<html lang="en" ng-app="LunchCheck">
   <head>
     <title>Lunch Checker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +14,7 @@
     </style>
   </head>
   <body>
-    <div class="container" ng-controller="Container">
+    <div class="container" ng-controller="LunchCheckController">
       <h1>Lunch Checker</h1>
 
       <div class="form-group">
@@ -24,6 +24,7 @@
           placeholder="list comma separated dishes you usually have for lunch"
           class="form-control"
           ng-model="lunchMenu"
+          ng-style="textboxStyle"
         />
       </div>
       <div class="form-group">
@@ -32,7 +33,7 @@
         </button>
         (Empty items are not considered)
       </div>
-      <div class="form-group message">{{message}}</div>
+      <div class="form-group message" ng-style="messageStyle" >{{message}}</div>
     </div>
   </body>
 </html>
